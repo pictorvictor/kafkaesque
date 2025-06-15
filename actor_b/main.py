@@ -3,6 +3,7 @@ from lxml import etree
 import os
 from datetime import datetime
 import time
+import random
 
 for i in range(10):
     try:
@@ -21,9 +22,33 @@ transform = etree.XSLT(xslt_doc)
 if consumer is None:
     raise Exception("Kafka consumer not initialized")
 
+def generate_random_answers():
+    answers = {}
+    answers["q1"] = random.choice(["1", "2", "3", "4", "5"])
+    answers["q2"] = random.choice(["Da", "Nu", "Parțial"])
+    answers["q3"] = random.choice(["Gustul", "Temperatura", "Cantitatea", "Altele"]) if answers["q2"] == "Parțial" else ""
+    answers["q4"] = random.choice(["Da", "Nu"])
+    answers["q5"] = random.choice(["Da", "Nu"])
+    answers["q6"] = random.choice([
+        "Foarte satisfăcut", "Satisfăcut", "Neutru", "Nesatisfăcut", "Foarte nesatisfăcut"
+    ]) if answers["q5"] == "Da" else ""
+    return answers
+
+
 for message in consumer:
     xml_doc = etree.fromstring(message.value)
-    result_tree = transform(xml_doc)
+
+    response_values = generate_random_answers()
+
+    result_tree = transform(
+        xml_doc,
+        q1=etree.XSLT.strparam(response_values["q1"]),
+        q2=etree.XSLT.strparam(response_values["q2"]),
+        q3=etree.XSLT.strparam(response_values["q3"]),
+        q4=etree.XSLT.strparam(response_values["q4"]),
+        q5=etree.XSLT.strparam(response_values["q5"]),
+        q6=etree.XSLT.strparam(response_values["q6"]),
+    )
     transformed_xml = etree.tostring(result_tree, pretty_print=True)
 
     output_dir = "/app/output"

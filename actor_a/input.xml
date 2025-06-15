@@ -1,3 +1,55 @@
-<person>
-    <name>John</name>
-</person>
+<GoogleForm>
+  <FormTitle>Formular de Evaluare Eveniment</FormTitle>
+  <FormDescription>Vă rugăm să completați formularul pentru a ne ajuta să îmbunătățim evenimentele viitoare.</FormDescription>
+
+  <Question id="q1" type="multiple_choice">
+    <Title>Ce notă acordați evenimentului?</Title>
+    <Option>1</Option>
+    <Option>2</Option>
+    <Option>3</Option>
+    <Option>4</Option>
+    <Option>5</Option>
+    <Required>true</Required>
+  </Question>
+
+  <Question id="q2" type="multiple_choice">
+    <Title>Mâncarea s-a ridicat la nivelul așteptărilor?</Title>
+    <Option>Da</Option>
+    <Option>Nu</Option>
+    <Option>Parțial</Option>
+    <Required>true</Required>
+  </Question>
+
+  <Question id="q3" type="checkboxes" dependsOn="q2" showIf="Parțial">
+    <Title>Dacă ați răspuns „Parțial”, ce anume nu a fost suficient de satisfăcător?</Title>
+    <Option>Gustul</Option>
+    <Option>Temperatura</Option>
+    <Option>Cantitatea</Option>
+    <Option>Altele</Option>
+    <Required>false</Required>
+  </Question>
+
+  <Question id="q4" type="multiple_choice">
+    <Title>Considerați că au fost păstrate normele de curățenie în incintă?</Title>
+    <Option>Da</Option>
+    <Option>Nu</Option>
+    <Required>true</Required>
+  </Question>
+
+  <Question id="q5" type="multiple_choice">
+    <Title>Ați avut pusă la dispoziție cazare din partea organizatorului?</Title>
+    <Option>Da</Option>
+    <Option>Nu</Option>
+    <Required>true</Required>
+  </Question>
+
+  <Question id="q6" type="multiple_choice" dependsOn="q5" showIf="Da">
+    <Title>Cât de satisfăcut ați fost de cazarea oferită?</Title>
+    <Option>Foarte satisfăcut</Option>
+    <Option>Satisfăcut</Option>
+    <Option>Neutru</Option>
+    <Option>Nesatisfăcut</Option>
+    <Option>Foarte nesatisfăcut</Option>
+    <Required>false</Required>
+  </Question>
+</GoogleForm>
